@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 # Create your views here.
 from todoapp.models import Tarea
 from todoapp.models import User
@@ -45,7 +46,8 @@ def register_user(request):
         mail = request.POST["mail"]
 
         user = User.objects.create_user(username=nombre, password=contraseña, email=mail, apodo=apodo, pronombre=pronombre)
-
+        
+        messages.success(request, f'¡Usuario {nombre} creado exitosamente!')
         return HttpResponseRedirect('/tareas')
     
 def login_user(request):
